@@ -11,14 +11,24 @@ def graph(query):
 
     return 0;
 
-def wolfram(query):
+def wolfram(query, podid):
     # Contact API
-    url = f"http://api.wolframalpha.com/v2/query?input={urllib.parse.quote_plus(query.strip())}&appid={APP_ID}&output=json"
-    print(url)
-    response = requests.get(url)
-    response.raise_for_status()
+    try: 
+        url = f"http://api.wolframalpha.com/v2/query?appid={APP_ID}&input={urllib.parse.quote(query)}&includepodid={podid}&output=json"
+        print(url)
+        response = requests.get(url).json()
+    except:
+        return "Error in Contacting API"
+
+    print('ya')
     # Give Back Answer
+    try:
+        answer = {}
+        
+        r=response["queryresult"]["pods"][0]["subpods"][0]
+        answer["plaintext"] = r["plaintext"]
+        answer["image"] = r["img"]["src"]
+    except:
+        return "Parsing Error"
 
-    print(response)
-
-    return response
+    return answer

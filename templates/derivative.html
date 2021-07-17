@@ -6,12 +6,13 @@
 {% endblock %}
 
 {% block main %}
-<form action = "/calculated" method = "post">
+<form action = "/derivative" method = "post">
     <div class="row gy-5" style="padding-top:20px; padding-bottom:20px">
         <div class="input-group mb-3">
             <span class="input-group-text" id="basic-addon1">d/dx</span>
             <input type="text" class="form-control" placeholder="Enter a function to differentiate here" aria-label="Derivative" aria-describedby="basic-addon1" name = "query">
-          </div>
+            <button class="btn btn-outline-secondary" type="submit" id="calculatebutton">=</button>
+        </div>
     </div>
 </form>
 {% endblock %}

@@ -42,13 +42,26 @@ def derivative():
 @app.route("/integral", methods=["GET", "POST"])
 def integral():
     if request.method == "POST":
-        pass
+        method = "integrate"
     else:
         return render_template("integral.html")
 
-@app.route("/limit", methods=["GET, POST"])
+@app.route("/limit", methods=["GET", "POST"])
 def limit():
     if request.method == "POST":
-        pass
+        # find the limit of function as it approaches c from left/right
+        podid = "Limit"
+        method = "lim "
+        function = request.form.get("function")
+        c = request.form.get("limitapproaches")
+        side = request.form.get("side")
+
+        additional = f" as x->{c}{side}"
+
+        inp = method + function + additional
+        print(inp)
+        answer = wolfram(inp, podid)
+
+        return render_template("limit.html", inp=inp, answer=answer, post=True)
     else:
         return render_template("limit.html")
