@@ -1,0 +1,36 @@
+
+{% extends "layout.html" %}
+
+{% block title %}
+    for Calculus
+{% endblock %}
+
+{% block main %}
+<form action = "/integral" method = "post">
+    
+    <div class="row gy-5" style="padding-top:20px; padding-bottom:20px">
+        <div class="input-group-mb3"id="integral_ui">
+            <div class="input-group">
+                <div class="col-xs-1">
+                    <input type="text" class="form-control" aria-label="a" placeholder="Lower bound" name = "lower">
+                </div>
+                <div class="col-xs-2">
+                    <input type="text" class="form-control" aria-label="b" placeholder="Upper bound" name = "upper">
+                </div>
+                <input type="text" class="form-control" aria-label="function" placeholder="Enter function you wish to integrate" name = "function">
+                <button class="btn btn-outline-secondary" type="submit" id="calculatebutton">=</button>
+            </div>
+        </div>
+    </div>
+    
+</form>
+<script src="static/integral_ui.js"></script>
+{% if answer %}
+<p>
+    Input: {{ inp }}
+    <hr>
+    Answer: <br>
+    <img src= {{ answer.image }} alt={{ answer.plaintext }}>
+</p>
+{% endif %}
+{% endblock %}

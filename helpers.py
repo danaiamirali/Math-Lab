@@ -19,8 +19,6 @@ def wolfram(query):
         response = requests.get(url).json()
     except:
         return "Error in Contacting API"
-
-    print('ya')
     # Give Back Answer
     try:
         answer = {}

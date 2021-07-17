@@ -10,25 +10,6 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
-
-@app.route("/calculate", methods=["GET", "POST"])
-def calculate():
-    if request.method == "POST":
-        expression = request.form.get("query")
-        answer = wolfram(expression)
-
-        return render_template("calculated.html", input=expression, answer=answer)
-    else:
-        return render_template("calculate.html")
-
-
-@app.route("/calculated", methods=["GET", "POST"])
-def calculated():
-    if request.method == "POST":
-        return render_template("calculated.html")
-    else:
-        return render_template("/")
-
 @app.route("/derivative", methods=["GET", "POST"])
 def derivative():
     if request.method == "POST":
@@ -38,7 +19,7 @@ def derivative():
         inp = degree + method + expression
         answer = wolfram(inp)
 
-        return render_template("derivative.html", inp = inp, answer=answer, post=True)
+        return render_template("derivative.html", inp = inp, answer=answer)
     else:
         return render_template("derivative.html")
 
@@ -47,6 +28,15 @@ def derivative():
 def integral():
     if request.method == "POST":
         method = "integrate"
+        lower = request.form.get("lower")
+        upper = request.form.get("upper")
+        expression = request.form.get("function")
+        inp = f"{method} {expression} from {lower} to {upper}"
+        answer = wolfram(inp)
+        print(inp)
+        print(answer)
+
+        return render_template("integral.html", inp=inp, answer=answer)
     else:
         return render_template("integral.html")
 
@@ -64,6 +54,6 @@ def limit():
         inp = method + function + additional
         answer = wolfram(inp)
 
-        return render_template("limit.html", inp=inp, answer=answer, post=True)
+        return render_template("limit.html", inp=inp, answer=answer)
     else:
         return render_template("limit.html")
