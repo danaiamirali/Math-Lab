@@ -9,12 +9,12 @@ client = wolframalpha.Client(APP_ID)
 def graph(query):
     answer = wolfram(query)
 
-    return 0;
+    return 0
 
-def wolfram(query, podid):
+def wolfram(query):
     # Contact API
     try: 
-        url = f"http://api.wolframalpha.com/v2/query?appid={APP_ID}&input={urllib.parse.quote(query)}&includepodid={podid}&output=json"
+        url = f"http://api.wolframalpha.com/v2/query?appid={APP_ID}&input={urllib.parse.quote(query)}&output=json"
         print(url)
         response = requests.get(url).json()
     except:

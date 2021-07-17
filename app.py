@@ -32,9 +32,13 @@ def calculated():
 @app.route("/derivative", methods=["GET", "POST"])
 def derivative():
     if request.method == "POST":
-        method = "find the derivative of"
+        degree = request.form.get("deriv")
+        method = " derivative of "
         expression = request.form.get("query")
-        pass
+        inp = degree + method + expression
+        answer = wolfram(inp)
+
+        return render_template("derivative.html", inp = inp, answer=answer, post=True)
     else:
         return render_template("derivative.html")
 
@@ -50,7 +54,6 @@ def integral():
 def limit():
     if request.method == "POST":
         # find the limit of function as it approaches c from left/right
-        podid = "Limit"
         method = "lim "
         function = request.form.get("function")
         c = request.form.get("limitapproaches")
@@ -59,8 +62,7 @@ def limit():
         additional = f" as x->{c}{side}"
 
         inp = method + function + additional
-        print(inp)
-        answer = wolfram(inp, podid)
+        answer = wolfram(inp)
 
         return render_template("limit.html", inp=inp, answer=answer, post=True)
     else:

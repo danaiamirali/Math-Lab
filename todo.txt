@@ -1,0 +1,7 @@
+add functionality to require input (js?)
+
+finsih derivative and integral implementation
+
+add grapher
+
+add Calculus to navbar

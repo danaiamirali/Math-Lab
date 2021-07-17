@@ -9,10 +9,24 @@
 <form action = "/derivative" method = "post">
     <div class="row gy-5" style="padding-top:20px; padding-bottom:20px">
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon1">d/dx</span>
+            <div class="col-xs-3">
+            <select class="form-select" name="deriv">
+                <option value="first" selected>first derivative</option>
+                <option value="second">second derivative</option>
+                <option value="third">third derivative</option>
+            </select>
+            </div>
             <input type="text" class="form-control" placeholder="Enter a function to differentiate here" aria-label="Derivative" aria-describedby="basic-addon1" name = "query">
             <button class="btn btn-outline-secondary" type="submit" id="calculatebutton">=</button>
         </div>
     </div>
 </form>
+{% if post %}
+<p>
+    Input: {{ inp }}
+    <hr>
+    Answer: <br>
+    <img src= {{ answer.image }} alt={{ answer.plaintext }}>
+</p>
+{% endif %}
 {% endblock %}
