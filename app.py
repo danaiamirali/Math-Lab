@@ -17,28 +17,64 @@ def derivative():
         method = " derivative of "
         expression = request.form.get("query")
         inp = degree + method + expression
-        answer = wolfram(inp)
+        answer = wolfram(inp, "Input")
 
-        return render_template("derivative.html", inp = inp, answer=answer)
+        return render_template("derivative.html", inp=inp, answer=answer)
     else:
         return render_template("derivative.html")
 
 
-@app.route("/integral", methods=["GET", "POST"])
+@app.route("/integral", methods=["GET"])
 def integral():
+    return render_template("integral.html")
+
+@app.route("/integral-def", methods=["GET", "POST"])
+def integraldef():
     if request.method == "POST":
         method = "integrate"
         lower = request.form.get("lower")
         upper = request.form.get("upper")
         expression = request.form.get("function")
         inp = f"{method} {expression} from {lower} to {upper}"
-        answer = wolfram(inp)
+        answer = wolfram(inp, "Input")
         print(inp)
         print(answer)
 
-        return render_template("integral.html", inp=inp, answer=answer)
+        return render_template("integral-def.html", inp=inp, answer=answer)
     else:
-        return render_template("integral.html")
+        return render_template("integral-def.html")
+
+
+@app.route("/integral-indef", methods=["GET", "POST"])
+def integralindef():
+    if request.method == "POST":
+        method = "integrate"
+        expression = request.form.get("function")
+        inp = f"{method} {expression}"
+        answer = wolfram(inp, "IndefiniteIntegral")
+        print(inp)
+        print(answer)
+
+        return render_template("integral-indef.html", inp=inp, answer=answer)
+    else:
+        return render_template("integral-indef.html")
+
+
+@app.route("/integral-improper", methods=["GET", "POST"])
+def integralimproper():
+    if request.method == "POST":
+        method = "int"
+        lower = request.form.get("lower")
+        upper = request.form.get("upper")
+        expression = request.form.get("function")
+        inp = f"{method} {expression}, {lower} to {upper}"
+        answer = wolfram(inp, "DefiniteIntegral")
+        print(inp)
+        print(answer)
+
+        return render_template("integral-improper.html", inp=inp, answer=answer)
+    else:
+        return render_template("integral-improper.html")
 
 @app.route("/limit", methods=["GET", "POST"])
 def limit():
@@ -52,7 +88,7 @@ def limit():
         additional = f" as x->{c}{side}"
 
         inp = method + function + additional
-        answer = wolfram(inp)
+        answer = wolfram(inp, "Limit")
 
         return render_template("limit.html", inp=inp, answer=answer)
     else:

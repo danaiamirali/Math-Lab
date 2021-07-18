@@ -11,10 +11,10 @@ def graph(query):
 
     return 0
 
-def wolfram(query):
+def wolfram(query, podid):
     # Contact API
     try: 
-        url = f"http://api.wolframalpha.com/v2/query?appid={APP_ID}&input={urllib.parse.quote(query)}&output=json"
+        url = f"http://api.wolframalpha.com/v2/query?appid={APP_ID}&input={urllib.parse.quote(query)}&includepodid={podid}&output=json"
         print(url)
         response = requests.get(url).json()
     except:
@@ -27,6 +27,6 @@ def wolfram(query):
         answer["plaintext"] = r["plaintext"]
         answer["image"] = r["img"]["src"]
     except:
-        return "Parsing Error"
+        return "Invalid Input"
 
     return answer

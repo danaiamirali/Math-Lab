@@ -1,36 +1,34 @@
-
 {% extends "layout.html" %}
 
 {% block title %}
-    for Calculus
+    Menu
 {% endblock %}
 
 {% block main %}
-<form action = "/integral" method = "post">
-    
-    <div class="row gy-5" style="padding-top:20px; padding-bottom:20px">
-        <div class="input-group-mb3"id="integral_ui">
-            <div class="input-group">
-                <div class="col-xs-1">
-                    <input type="text" class="form-control" aria-label="a" placeholder="Lower bound" name = "lower">
-                </div>
-                <div class="col-xs-2">
-                    <input type="text" class="form-control" aria-label="b" placeholder="Upper bound" name = "upper">
-                </div>
-                <input type="text" class="form-control" aria-label="function" placeholder="Enter function you wish to integrate" name = "function">
-                <button class="btn btn-outline-secondary" type="submit" id="calculatebutton">=</button>
-            </div>
+<div class="container-md" style="padding-top: 20px;">
+
+<div class="card-header-custom">Integrals</div>
+<div class="card-group">
+    <div class="card border-dark mb-3" style="width: 18rem">
+        <img class="card-img-top" src="static/mathlabassets/defintegral.gif" alt="Definite integral"style="padding-top: 5px;">
+        <div class="card-body">
+          <a href="/integral-def" class="card-link">Definite Integrals</a>
         </div>
     </div>
-    
-</form>
-<script src="static/integral_ui.js"></script>
-{% if answer %}
-<p>
-    Input: {{ inp }}
-    <hr>
-    Answer: <br>
-    <img src= {{ answer.image }} alt={{ answer.plaintext }}>
-</p>
-{% endif %}
+    <div class="card border-dark mb-3" style="width: 18rem">
+        <img class="card-img-top" src="static/mathlabassets/indefintegral.gif" alt="Indefinite integral" style="padding-bottom: 5px; padding-top: 5px;">
+        <div class="card-body">
+          <a href="/integral-indef" class="card-link">Indefinite Integrals</a>
+        </div>
+    </div>
+    <div class="card border-dark mb-3" style="width: 18rem">
+        <img class="card-img-top" src="static/mathlabassets/improperintegral.gif" alt="Improper integral" style="padding-bottom: 25px; padding-top: 5px;">
+        <div class="card-body">
+          <a href="/integral-improper" class="card-link">Improper Integrals</a>
+        </div>
+    </div>
+</div>
+</div>
+
+<hr>
 {% endblock %}

@@ -1,7 +1,2 @@
-add functionality to require input (js?)
-
-finsih derivative and integral implementation
-
+add scrolling functionality to main form group to allow to add more?
 add grapher
-
-add Calculus to navbar
