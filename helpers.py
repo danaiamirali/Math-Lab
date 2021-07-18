@@ -4,28 +4,25 @@ import urllib.parse
 
 # Configuring wolfram alpha app id
 APP_ID = 'WLEY43-WJGR6QKPGU'
-client = wolframalpha.Client(APP_ID)
 
-def graph(query):
-    answer = wolfram(query)
-
-    return 0
-
-def wolfram(query, podid):
+def wolfram(query, podscanner):
     # Contact API
-    try: 
-        url = f"http://api.wolframalpha.com/v2/query?appid={APP_ID}&input={urllib.parse.quote(query)}&includepodid={podid}&output=json"
+    try:
+        url = f"http://api.wolframalpha.com/v2/query?appid={APP_ID}&input={urllib.parse.quote(query)}&includepodscanner={podscanner}&output=json"
         print(url)
         response = requests.get(url).json()
     except:
         return "Error in Contacting API"
+
     # Give Back Answer
     try:
         answer = {}
-        
+
         r=response["queryresult"]["pods"][0]["subpods"][0]
+
         answer["plaintext"] = r["plaintext"]
         answer["image"] = r["img"]["src"]
+        print(answer)
     except:
         return "Invalid Input"
 

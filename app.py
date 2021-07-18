@@ -1,10 +1,10 @@
 import wolframalpha
 from flask import Flask, render_template, request
-from helpers import graph, wolfram
+from helpers import wolfram
 
 # Configuring flask
 app = Flask(__name__)
-  
+
 
 @app.route("/")
 def index():
@@ -17,7 +17,10 @@ def derivative():
         method = " derivative of "
         expression = request.form.get("query")
         inp = degree + method + expression
-        answer = wolfram(inp, "Input")
+        answer = wolfram(inp, "Derivative")
+
+        if answer == "Invalid Input" or answer == "Error in Contacting API":
+            return render_template("error.html", answer=answer)
 
         return render_template("derivative.html", inp=inp, answer=answer)
     else:
@@ -36,9 +39,10 @@ def integraldef():
         upper = request.form.get("upper")
         expression = request.form.get("function")
         inp = f"{method} {expression} from {lower} to {upper}"
-        answer = wolfram(inp, "Input")
-        print(inp)
-        print(answer)
+        answer = wolfram(inp, "Integral")
+
+        if answer == "Invalid Input" or answer == "Error in Contacting API":
+            return render_template("error.html", answer=answer)
 
         return render_template("integral-def.html", inp=inp, answer=answer)
     else:
@@ -51,9 +55,12 @@ def integralindef():
         method = "integrate"
         expression = request.form.get("function")
         inp = f"{method} {expression}"
-        answer = wolfram(inp, "IndefiniteIntegral")
+        answer = wolfram(inp, "Integral")
         print(inp)
         print(answer)
+
+        if answer == "Invalid Input" or answer == "Error in Contacting API":
+            return render_template("error.html", answer=answer)
 
         return render_template("integral-indef.html", inp=inp, answer=answer)
     else:
@@ -68,9 +75,10 @@ def integralimproper():
         upper = request.form.get("upper")
         expression = request.form.get("function")
         inp = f"{method} {expression}, {lower} to {upper}"
-        answer = wolfram(inp, "DefiniteIntegral")
-        print(inp)
-        print(answer)
+        answer = wolfram(inp, "Integral")
+
+        if answer == "Invalid Input" or answer == "Error in Contacting API":
+            return render_template("error.html", answer=answer)
 
         return render_template("integral-improper.html", inp=inp, answer=answer)
     else:
@@ -89,6 +97,9 @@ def limit():
 
         inp = method + function + additional
         answer = wolfram(inp, "Limit")
+
+        if answer == "Invalid Input" or answer == "Error in Contacting API":
+            return render_template("error.html", answer=answer)
 
         return render_template("limit.html", inp=inp, answer=answer)
     else:
